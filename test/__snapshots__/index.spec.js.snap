@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dialog should match snapshot 1`] = `
+<body>
+  <div>
+    
+  </div>
+  <div
+    class="_tadashi_svelte_dialog svelte-1x96u8l _tadashi_svelte_dialog__align_top"
+    style=""
+  >
+    <div
+      class="_tadashi_svelte_dialog__box svelte-1x96u8l"
+    >
+      <div
+        class="_tadashi_svelte_dialog__content _tadashi_svelte_dialog__grid svelte-1x96u8l"
+      >
+        <div
+          class="_tadashi_svelte_dialog__header svelte-1x96u8l"
+        >
+          <h3
+            class="_tadashi_svelte_dialog__title svelte-1svxb87"
+            slot="header"
+          >
+            Teste
+          </h3>
+        </div>
+         
+        <button
+          class="_tadashi_svelte_dialog__close svelte-1x96u8l"
+          type="button"
+        >
+          ×
+        </button>
+         
+        <div
+          class="_tadashi_svelte_dialog__body svelte-1x96u8l"
+        >
+          Apenas um show.
+          
+           
+           
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
