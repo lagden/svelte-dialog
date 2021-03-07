@@ -27,20 +27,24 @@ You can see an example here: https://svelte.dev/repl/1edee6644cc44942bff65170a1e
 ```html
 <script>
   import {Dialog, acts} from '@tadashi/svelte-dialog'
+  import Exemplo from './Exemplo.svelte'
 
-  function showDialog(opts, name) {
+  function showDialog(opts = {}, name, useBase = true) {
     return () => {
-      if (name) {
-        acts.open(name)
-        return
-      }
-      acts.update({
-        title: 'Esse é um modal com o título grande',
-        message: 'Apenas um <b>show</b>!',
-        ...opts
-      })
-      acts.open()
+      acts.update(opts, name, useBase)
+      acts.open(name)
     }
+  }
+
+  function showDialogOnlyOpen(name) {
+    return () => {
+      acts.open(name)
+    }
+  }
+
+  const base = {
+    title: 'Esse é um "dialog" com o título grande',
+    message: 'Apenas um <b>show</b>!'
   }
 
   const unique = {
@@ -49,14 +53,34 @@ You can see an example here: https://svelte.dev/repl/1edee6644cc44942bff65170a1e
     message: 'Apenas um show uniquee',
     useAlignTop: false
   }
+
+  const component = {
+    title: 'Via Componente',
+    message: false,
+    useAlignTop: false,
+    component: {
+      element: Exemplo,
+      props: {
+        title: 'Exemplo',
+        message: 'Forever and ever!'
+      }
+    }
+  }
 </script>
 
-<button on:click="{showDialog()}">Open Dialog</button>
-<button on:click="{showDialog({title: 'Dialog'})}">Open Update Dialog</button>
-<button on:click="{showDialog({},'yeahh')}">Open Dialog Unique</button>
+<button on:click="{showDialog(base)}">Open Dialog</button>
+<button on:click="{showDialog({title: 'Dialog'}, false, false)}">Open Update only Title</button>
+<button on:click="{showDialog(component)}">Open Dialog Component</button>
+<button on:click="{showDialogOnlyOpen('yeahh')}">Open Dialog Unique</button>
 
 <Dialog />
 <Dialog {...unique} />
+
+<style>
+  button {
+    display: block;
+  }
+</style>
 ```
 
 

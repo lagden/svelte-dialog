@@ -4,7 +4,7 @@ function getDialog(name) {
 	return name ? store.getUnique(name) : store.dialog
 }
 
-export function init(opts, name) {
+export function init(opts = {}, name) {
 	const dialog = name ? store.unique(name) : store.dialog
 	opts = {
 		...store.base,
@@ -14,12 +14,14 @@ export function init(opts, name) {
 	return dialog
 }
 
-export function update(opts, name) {
+export function update(opts, name, useBase = true) {
 	const dialog = getDialog(name)
-	if (dialog) {
-		opts = {
-			...store.base,
-			...opts
+	if (dialog && opts) {
+		if (useBase) {
+			opts = {
+				...store.base,
+				...opts
+			}
 		}
 		dialog.set(opts)
 	}
