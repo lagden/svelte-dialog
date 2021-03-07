@@ -1,3 +1,5 @@
+/* globals describe, afterEach, test, expect */
+
 import {cleanup, render} from '@testing-library/svelte'
 import {Dialog, acts} from '../src'
 
@@ -17,6 +19,6 @@ describe('Dialog', () => {
 		setTimeout(() => {
 			expect(container).toMatchSnapshot()
 			done()
-		}, 2000)
+		}, 1000)
 	})
 })

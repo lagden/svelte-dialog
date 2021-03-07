@@ -4,7 +4,7 @@ function getDialog(name) {
 	return name ? store.getUnique(name) : store.dialog
 }
 
-export function init(opts = {}, name) {
+export function init(opts, name) {
 	const dialog = name ? store.unique(name) : store.dialog
 	opts = {
 		...store.base,
