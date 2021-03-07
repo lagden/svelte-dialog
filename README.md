@@ -43,7 +43,7 @@ props       | Object       | no          | {}        | Component properties
 
 You can see an example here: https://svelte.dev/repl/1edee6644cc44942bff65170a1e7b370?version=3.35.0
 
-```html
+```svelte
 <script>
   import {Dialog, acts} from '@tadashi/svelte-dialog'
   import Exemplo from './Exemplo.svelte'
