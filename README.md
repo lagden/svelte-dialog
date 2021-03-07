@@ -19,6 +19,25 @@ Svelte component
 $ npm i -S @tadashi/svelte-dialog
 ```
 
+## Props
+
+property    | type         | required    | default               | description
+----------- | ------------ | ----------- | -------------------   | ------------
+name        | String       | no          | false                 | unique name (like a ID)
+title       | String       | no          | -                     | title
+message     | String       | no          | false                 | message
+component   | Object       | no          | false                 | [see below](#component)
+maxHeight   | Boolean      | no          | false                 | set max-height
+useAlignTop | Boolean      | no          | true                  | align dialog on the top
+
+
+#### component
+
+parameter   | type         | required    | default   | description
+----------- | ------------ | ----------- | --------- | ------------
+element     | Component    | yes         | -         | A Svelte Component
+props       | Object       | no          | {}        | Component properties
+
 
 ## Usage
 

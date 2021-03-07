@@ -59,7 +59,7 @@
 		{/if}
 
 		{#if opts.component}
-			<svelte:component this={opts.component.element} {...opts.component.props} />
+			<svelte:component this={opts.component.element} {...opts.component?.props ?? {}} />
 		{/if}
 
 		<slot />
