@@ -28,7 +28,7 @@
 	}
 
 	function handleKeydown(event) {
-		if (event.key === 'Escape') {
+		if (event.key === 'Escape' && showClose) {
 			event.preventDefault()
 			close()
 		}
