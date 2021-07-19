@@ -3,6 +3,7 @@
 
 	export let maxHeight = false
 	export let useAlignTop = true
+	export let showClose = true
 
 	function init(node) {
 		document.body.insertAdjacentElement('beforeend', node)
@@ -20,7 +21,12 @@
 			<div class="_tadashi_svelte_dialog__header">
 				<slot name="header" />
 			</div>
-			<button type="button" class="_tadashi_svelte_dialog__close" on:click>×</button>
+			<button
+				type="button"
+				class="_tadashi_svelte_dialog__close"
+				class:_tadashi_svelte_dialog__close___show={showClose}
+				on:click
+			>×</button>
 			<div
 				class="_tadashi_svelte_dialog__body"
 				class:_tadashi_svelte_dialog_body__max={maxHeight}
@@ -33,6 +39,7 @@
 
 <style>
 	:root {
+		--tadashi_svelte_dialog_backdrop_filter: blur(3px);
 		--tadashi_svelte_dialog_background_color: hsla(0, 0%, 0%, 0.2);
 		--tadashi_svelte_dialog_zindex: 1000;
 
@@ -72,8 +79,9 @@
 		bottom: 0;
 		overflow-y: auto;
 		overflow-x: hidden;
-		z-index: var(--tadashi_svelte_dialog_zindex);
 		background-color: var(--tadashi_svelte_dialog_background_color);
+		backdrop-filter: var(--tadashi_svelte_dialog_backdrop_filter);
+		z-index: var(--tadashi_svelte_dialog_zindex);
 	}
 
 	._tadashi_svelte_dialog__align_top {
@@ -141,5 +149,9 @@
 		justify-content: center;
 		font-size: var(--tadashi_svelte_dialog__close_font_size);
 		font-family: var(--tadashi_svelte_dialog__close_font_family);
+	}
+
+	._tadashi_svelte_dialog__close___show {
+		display: none;
 	}
 </style>

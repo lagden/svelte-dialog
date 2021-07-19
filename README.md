@@ -4,10 +4,10 @@
 [![Build Status][ci-img]][ci]
 
 
-[npm-img]:         https://img.shields.io/npm/v/@tadashi/svelte-dialog.svg
-[npm]:             https://www.npmjs.com/package/@tadashi/svelte-dialog
-[ci-img]:          https://github.com/lagden/svelte-dialog/workflows/Node.js%20CI/badge.svg
-[ci]:              https://github.com/lagden/svelte-dialog/actions?query=workflow%3A%22Node.js+CI%22
+[npm-img]:  https://img.shields.io/npm/v/@tadashi/svelte-dialog.svg
+[npm]:      https://www.npmjs.com/package/@tadashi/svelte-dialog
+[ci-img]:   https://github.com/lagden/svelte-dialog/workflows/Node.js%20CI/badge.svg
+[ci]:       https://github.com/lagden/svelte-dialog/actions?query=workflow%3A%22Node.js+CI%22
 
 ---
 
@@ -21,14 +21,15 @@ $ npm i -S @tadashi/svelte-dialog
 
 ## Props
 
-property    | type         | required    | default               | description
------------ | ------------ | ----------- | -------------------   | ------------
-name        | String       | no          | false                 | unique name (like a ID)
-title       | String       | no          | -                     | title
-message     | String       | no          | false                 | message
-component   | Object       | no          | false                 | [see below](#component)
-maxHeight   | Boolean      | no          | false                 | set max-height
-useAlignTop | Boolean      | no          | true                  | align dialog on the top
+property    | type         | required    | default   | description
+----------- | ------------ | ----------- | --------- | ------------
+name        | String       | no          | false     | unique name (like a ID)
+title       | String       | no          | -         | title
+message     | String       | no          | false     | message
+component   | Object       | no          | false     | [see below](#component)
+maxHeight   | Boolean      | no          | false     | set max-height
+useAlignTop | Boolean      | no          | true      | align dialog on the top
+showClose   | Boolean      | no          | true      | show close button
 
 
 #### component

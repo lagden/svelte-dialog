@@ -1,22 +1,24 @@
 <script>
 	import {onDestroy} from 'svelte'
-	import {init} from './acts'
+	import {init} from './acts.js'
 
 	import Base from './Base.svelte'
 
-	export let name = false
+	export let name = undefined
 	export let title = ''
-	export let message = false
-	export let component = false
+	export let message = undefined
+	export let component = undefined
 	export let maxHeight = false
 	export let useAlignTop = true
+	export let showClose = true
 
 	const opts = {
 		title,
 		message,
 		component,
 		maxHeight,
-		useAlignTop
+		useAlignTop,
+		showClose,
 	}
 
 	const dialog = init(opts, name)
@@ -34,7 +36,7 @@
 
 	const optsKeys = Object.keys(opts)
 	const unsubscribe = dialog.subscribe(o => {
-		for (let k of optsKeys) {
+		for (const k of optsKeys) {
 			opts[k] = o?.[k] ?? opts[k]
 		}
 	})
@@ -50,6 +52,7 @@
 	<Base
 		maxHeight={opts.maxHeight}
 		useAlignTop={opts.useAlignTop}
+		showClose={opts.showClose}
 		on:click={close}
 	>
 		<h3 class="_tadashi_svelte_dialog__title" slot="header">{opts.title}</h3>

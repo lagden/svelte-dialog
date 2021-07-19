@@ -1,27 +1,31 @@
 import resolve from '@rollup/plugin-node-resolve'
 import svelte from 'rollup-plugin-svelte'
-import pkg from './package.json'
 
-const name = pkg.name
-	.replace(/^(@\S+\/)?(svelte-)?(\S+)/, '$3')
-	.replace(/^\w/, m => m.toUpperCase())
-	.replace(/-\w/g, m => m[1].toUpperCase())
+const ignoreWarnings = new Set([
+	'a11y-no-onchange',
+	'a11y-label-has-associated-control',
+	'css-unused-selector',
+])
 
 export default {
-	input: 'src/index.js',
+	input: 'src/dialog.js',
 	output: [
 		{
-			file: 'dist/index.js',
-			format: 'es'
+			file: 'dist/dialog.js',
+			format: 'es',
 		},
-		{
-			name,
-			file: 'dist/index.umd.js',
-			format: 'umd'
-		}
 	],
 	plugins: [
-		svelte({emitCss: false}),
-		resolve({browser: true})
-	]
+		svelte({
+			emitCss: false,
+			onwarn(warning, handler) {
+				// console.log('warning.code', warning.code)
+				if (ignoreWarnings.has(warning.code)) {
+					return
+				}
+				handler(warning)
+			},
+		}),
+		resolve({browser: true}),
+	],
 }

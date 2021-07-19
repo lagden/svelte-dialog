@@ -8,7 +8,7 @@ export function init(opts, name) {
 	const dialog = name ? store.unique(name) : store.dialog
 	opts = {
 		...store.base,
-		...opts
+		...opts,
 	}
 	dialog.set(opts)
 	return dialog
@@ -20,7 +20,7 @@ export function update(opts, name, useBase = true) {
 		if (useBase) {
 			opts = {
 				...store.base,
-				...opts
+				...opts,
 			}
 		}
 		dialog.set(opts)

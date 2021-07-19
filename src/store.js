@@ -6,7 +6,7 @@ const base = {
 	open: false,
 	title: '',
 	message: '',
-	component: {}
+	component: {},
 }
 
 function toggle(n, v) {
@@ -20,7 +20,7 @@ function dialogStore() {
 		set,
 		subscribe,
 		open: () => update(n => toggle(n, true)),
-		close: () => update(n => toggle(n, false))
+		close: () => update(n => toggle(n, false)),
 	}
 }
 
@@ -47,5 +47,5 @@ export {
 	dialog,
 	unique,
 	getUnique,
-	getData
+	getData,
 }
