@@ -27,7 +27,7 @@ exports[`Dialog should match snapshot 1`] = `
         </div>
          
         <button
-          class="_tadashi_svelte_dialog__close svelte-mw6c66 _tadashi_svelte_dialog__close___show"
+          class="_tadashi_svelte_dialog__close svelte-mw6c66"
           type="button"
         >
           ×

@@ -24,7 +24,7 @@
 			<button
 				type="button"
 				class="_tadashi_svelte_dialog__close"
-				class:_tadashi_svelte_dialog__close___show={showClose}
+				class:_tadashi_svelte_dialog__close___show={!showClose}
 				on:click
 			>×</button>
 			<div
