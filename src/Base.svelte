@@ -4,6 +4,7 @@
 	export let maxHeight = false
 	export let useAlignTop = true
 	export let showClose = true
+	export let style = ''
 
 	function init(node) {
 		document.body.insertAdjacentElement('beforeend', node)
@@ -15,6 +16,7 @@
 	class:_tadashi_svelte_dialog__align_top={useAlignTop}
 	use:init
 	in:fade|local={{duration: 400}}
+	{style}
 >
 	<div class="_tadashi_svelte_dialog__box">
 		<div class="_tadashi_svelte_dialog__content _tadashi_svelte_dialog__grid">
