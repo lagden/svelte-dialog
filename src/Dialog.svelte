@@ -11,6 +11,7 @@
 	export let maxHeight = false
 	export let useAlignTop = true
 	export let showClose = true
+	export let style = ''
 
 	const opts = {
 		title,
@@ -54,6 +55,7 @@
 		useAlignTop={opts.useAlignTop}
 		showClose={opts.showClose}
 		on:click={close}
+		{style}
 	>
 		<h3 class="_tadashi_svelte_dialog__title" slot="header">{opts.title}</h3>
 
