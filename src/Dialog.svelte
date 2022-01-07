@@ -12,6 +12,7 @@
 	export let useAlignTop = true
 	export let showClose = true
 	export let showTitle = true
+	export let customStyle = ''
 
 	const opts = {
 		title,
@@ -21,6 +22,7 @@
 		useAlignTop,
 		showClose,
 		showTitle,
+		customStyle,
 	}
 
 	const dialog = init(opts, name)
@@ -56,6 +58,7 @@
 		useAlignTop={opts.useAlignTop}
 		showClose={opts.showClose}
 		showTitle={opts.showTitle}
+		customStyle={opts.customStyle}
 		{...$$restProps}
 		on:click={close}
 	>

@@ -6,6 +6,7 @@ const base = {
 	open: false,
 	title: '',
 	message: '',
+	customStyle: '',
 	component: {},
 }
 

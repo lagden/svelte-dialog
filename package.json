@@ -1,6 +1,6 @@
 {
   "name": "@tadashi/svelte-dialog",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Svelte component",
   "author": "Thiago Lagden",
   "license": "MIT",

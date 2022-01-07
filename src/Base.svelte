@@ -5,6 +5,9 @@
 	export let useAlignTop
 	export let showClose
 	export let showTitle
+	export let customStyle
+
+	$$restProps.style = `${$$restProps?.style ?? ''};${customStyle}`
 
 	function init(node) {
 		document.body.insertAdjacentElement('beforeend', node)
@@ -27,6 +30,8 @@
 		<div
 			class="_tadashi_svelte_dialog__content _tadashi_svelte_dialog__grid"
 			class:_tadashi_svelte_dialog__grid___no_show_title={!showTitle}
+			class:_tadashi_svelte_dialog__grid___no_show_close={!showClose}
+			class:_tadashi_svelte_dialog__grid___no_show_title_close={!showTitle && !showClose}
 		>
 			<div
 				class="_tadashi_svelte_dialog__header"
@@ -133,6 +138,20 @@
 		grid-template-areas:
 			".    close"
 			"body body";
+	}
+
+	._tadashi_svelte_dialog__grid___no_show_close {
+		grid-template-areas:
+			"head"
+			"body";
+		grid-template-columns: 1fr;
+	}
+
+	._tadashi_svelte_dialog__grid___no_show_title_close {
+		grid-template-areas:
+			"body";
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr;
 	}
 
 	._tadashi_svelte_dialog__header {
