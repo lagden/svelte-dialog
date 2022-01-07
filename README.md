@@ -30,6 +30,7 @@ component   | Object       | no          | false     | [see below](#component)
 maxHeight   | Boolean      | no          | false     | set max-height
 useAlignTop | Boolean      | no          | true      | align dialog on the top
 showClose   | Boolean      | no          | true      | show close button
+showTitle   | Boolean      | no          | true      | show box title
 
 
 #### component
