@@ -26,6 +26,7 @@ property    | type         | required    | default   | description
 name        | String       | no          | false     | unique name (like a ID)
 title       | String       | no          | -         | title
 message     | String       | no          | false     | message
+customStyle | String       | no          | ''        | custom style
 component   | Object       | no          | false     | [see below](#component)
 maxHeight   | Boolean      | no          | false     | set max-height
 useAlignTop | Boolean      | no          | true      | align dialog on the top
@@ -89,10 +90,10 @@ You can see an example here: https://svelte.dev/repl/1edee6644cc44942bff65170a1e
   }
 </script>
 
-<button on:click="{showDialog(base)}">Open Dialog</button>
-<button on:click="{showDialog({title: 'Dialog'}, false, false)}">Open Update only Title</button>
-<button on:click="{showDialog(component)}">Open Dialog Component</button>
-<button on:click="{showDialogOnlyOpen('yeahh')}">Open Dialog Unique</button>
+<button on:click="{showDialog(base)}">Dialog</button>
+<button on:click="{showDialog({title: 'Dialog'}, false, false)}">Update Title</button>
+<button on:click="{showDialog(component)}">Dialog Component</button>
+<button on:click="{showDialogOnlyOpen('yeahh')}">Dialog Unique</button>
 
 <Dialog />
 <Dialog {...unique} />
