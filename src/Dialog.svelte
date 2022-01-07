@@ -5,12 +5,13 @@
 	import Base from './Base.svelte'
 
 	export let name = undefined
-	export let title = ''
+	export let title = undefined
 	export let message = undefined
 	export let component = undefined
 	export let maxHeight = false
 	export let useAlignTop = true
 	export let showClose = true
+	export let showTitle = true
 
 	const opts = {
 		title,
@@ -19,6 +20,7 @@
 		maxHeight,
 		useAlignTop,
 		showClose,
+		showTitle,
 	}
 
 	const dialog = init(opts, name)
@@ -53,6 +55,8 @@
 		maxHeight={opts.maxHeight}
 		useAlignTop={opts.useAlignTop}
 		showClose={opts.showClose}
+		showTitle={opts.showTitle}
+		{...$$restProps}
 		on:click={close}
 	>
 		<h3 class="_tadashi_svelte_dialog__title" slot="header">{opts.title}</h3>

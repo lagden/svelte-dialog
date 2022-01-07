@@ -6,8 +6,8 @@
 
 [npm-img]:  https://img.shields.io/npm/v/@tadashi/svelte-dialog.svg
 [npm]:      https://www.npmjs.com/package/@tadashi/svelte-dialog
-[ci-img]:   https://github.com/lagden/svelte-dialog/workflows/Node.js%20CI/badge.svg
-[ci]:       https://github.com/lagden/svelte-dialog/actions?query=workflow%3A%22Node.js+CI%22
+[ci-img]:   https://github.com/lagden/svelte-dialog/actions/workflows/nodejs.yml/badge.svg
+[ci]:       https://github.com/lagden/svelte-dialog/actions/workflows/nodejs.yml
 
 ---
 

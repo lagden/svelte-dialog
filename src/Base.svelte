@@ -1,12 +1,18 @@
 <script>
 	import {fade} from 'svelte/transition'
 
-	export let maxHeight = false
-	export let useAlignTop = true
-	export let showClose = true
+	export let maxHeight
+	export let useAlignTop
+	export let showClose
+	export let showTitle
 
 	function init(node) {
 		document.body.insertAdjacentElement('beforeend', node)
+		return {
+			destroy() {
+				node.remove()
+			}
+		}
 	}
 </script>
 
@@ -15,16 +21,23 @@
 	class:_tadashi_svelte_dialog__align_top={useAlignTop}
 	use:init
 	in:fade|local={{duration: 400}}
+	{...$$restProps}
 >
 	<div class="_tadashi_svelte_dialog__box">
-		<div class="_tadashi_svelte_dialog__content _tadashi_svelte_dialog__grid">
-			<div class="_tadashi_svelte_dialog__header">
+		<div
+			class="_tadashi_svelte_dialog__content _tadashi_svelte_dialog__grid"
+			class:_tadashi_svelte_dialog__grid___no_show_title={!showTitle}
+		>
+			<div
+				class="_tadashi_svelte_dialog__header"
+				class:_tadashi_svelte_dialog__header___no_show={!showTitle}
+			>
 				<slot name="header" />
 			</div>
 			<button
 				type="button"
 				class="_tadashi_svelte_dialog__close"
-				class:_tadashi_svelte_dialog__close___show={!showClose}
+				class:_tadashi_svelte_dialog__close___no_show={!showClose}
 				on:click
 			>×</button>
 			<div
@@ -116,8 +129,18 @@
 		grid-template-rows: auto 1fr;
 	}
 
+	._tadashi_svelte_dialog__grid___no_show_title {
+		grid-template-areas:
+			".    close"
+			"body body";
+	}
+
 	._tadashi_svelte_dialog__header {
 		grid-area: head;
+	}
+
+	._tadashi_svelte_dialog__header___no_show {
+		display: none;
 	}
 
 	._tadashi_svelte_dialog__body {
@@ -151,7 +174,7 @@
 		font-family: var(--tadashi_svelte_dialog__close_font_family);
 	}
 
-	._tadashi_svelte_dialog__close___show {
+	._tadashi_svelte_dialog__close___no_show {
 		display: none;
 	}
 </style>

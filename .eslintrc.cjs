@@ -59,6 +59,7 @@ module.exports = {
 		'unicorn/no-useless-undefined': 0,
 		'unicorn/no-zero-fractions': 0,
 		'unicorn/prefer-query-selector': 0,
+		'unicorn/prefer-export-from': 0,
 		'unicorn/import-style': [
 			'error',
 			{
