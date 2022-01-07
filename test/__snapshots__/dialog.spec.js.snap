@@ -6,17 +6,17 @@ exports[`Dialog should match snapshot 1`] = `
     
   </div>
   <div
-    class="_tadashi_svelte_dialog svelte-mw6c66 _tadashi_svelte_dialog__align_top"
+    class="_tadashi_svelte_dialog _tadashi_svelte_dialog__align_top svelte-193tk9a"
     style=""
   >
     <div
-      class="_tadashi_svelte_dialog__box svelte-mw6c66"
+      class="_tadashi_svelte_dialog__box svelte-193tk9a"
     >
       <div
-        class="_tadashi_svelte_dialog__content _tadashi_svelte_dialog__grid svelte-mw6c66"
+        class="_tadashi_svelte_dialog__content _tadashi_svelte_dialog__grid svelte-193tk9a"
       >
         <div
-          class="_tadashi_svelte_dialog__header svelte-mw6c66"
+          class="_tadashi_svelte_dialog__header svelte-193tk9a"
         >
           <h3
             class="_tadashi_svelte_dialog__title svelte-1svxb87"
@@ -27,14 +27,14 @@ exports[`Dialog should match snapshot 1`] = `
         </div>
          
         <button
-          class="_tadashi_svelte_dialog__close svelte-mw6c66"
+          class="_tadashi_svelte_dialog__close svelte-193tk9a"
           type="button"
         >
           ×
         </button>
          
         <div
-          class="_tadashi_svelte_dialog__body svelte-mw6c66"
+          class="_tadashi_svelte_dialog__body svelte-193tk9a"
         >
           Apenas um show.
           
