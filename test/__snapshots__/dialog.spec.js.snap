@@ -20,7 +20,7 @@ exports[`Dialog should match snapshot 1`] = `
           class="_tadashi_svelte_dialog__header svelte-1p7324g"
         >
           <h3
-            class="_tadashi_svelte_dialog__title svelte-18rxegx"
+            class="_tadashi_svelte_dialog__title svelte-4o4ptr"
             slot="header"
           >
             Teste
