@@ -1,14 +1,12 @@
 <script>
+	import {onDestroy} from 'svelte'
 	import {fade, fly} from 'svelte/transition'
 
-	export let maxHeight
-	export let useAlignTop
-	export let showClose
-	export let showTitle
-	export let customStyle
+	export let dialog
 	export let milliseconds = 400
+	export let style = ''
 
-	$$restProps.style = `${$$restProps?.style ?? ''};${customStyle}`
+	console.log('style', style)
 
 	function init(node) {
 		document.body.insertAdjacentElement('beforeend', node)
@@ -25,11 +23,20 @@
 		y: 500,
 		opacity: 0,
 	}
+
+	const unsubscribe = dialog.subscribe(o => {
+		console.log('dialog -->', o)
+	})
+
+	onDestroy(() => {
+		unsubscribe && unsubscribe()
+	})
 </script>
 
 <div
+	style="{$dialog.customStyle}"
 	class="_tadashi_svelte_dialog"
-	class:_tadashi_svelte_dialog__align_top={useAlignTop}
+	class:_tadashi_svelte_dialog__align_top={$dialog.useAlignTop}
 	use:init
 	in:fade={{duration: milliseconds}}
 	out:fade={{duration: milliseconds, delay: milliseconds + 100}}
@@ -42,25 +49,25 @@
 	>
 		<div
 			class="_tadashi_svelte_dialog__content _tadashi_svelte_dialog__grid"
-			class:_tadashi_svelte_dialog__grid___no_show_title={!showTitle}
-			class:_tadashi_svelte_dialog__grid___no_show_close={!showClose}
-			class:_tadashi_svelte_dialog__grid___no_show_title_close={!showTitle && !showClose}
+			class:_tadashi_svelte_dialog__grid___no_show_title={!$dialog.showTitle}
+			class:_tadashi_svelte_dialog__grid___no_show_close={!$dialog.showClose}
+			class:_tadashi_svelte_dialog__grid___no_show_title_close={!$dialog.showTitle && !$dialog.showClose}
 		>
 			<div
 				class="_tadashi_svelte_dialog__header"
-				class:_tadashi_svelte_dialog__header___no_show={!showTitle}
+				class:_tadashi_svelte_dialog__header___no_show={!$dialog.showTitle}
 			>
 				<slot name="header" />
 			</div>
 			<button
 				type="button"
 				class="_tadashi_svelte_dialog__close"
-				class:_tadashi_svelte_dialog__close___no_show={!showClose}
+				class:_tadashi_svelte_dialog__close___no_show={!$dialog.showClose}
 				on:click
 			>×</button>
 			<div
 				class="_tadashi_svelte_dialog__body"
-				class:_tadashi_svelte_dialog_body__max={maxHeight}
+				class:_tadashi_svelte_dialog_body__max={$dialog.maxHeight}
 			>
 				<slot />
 			</div>

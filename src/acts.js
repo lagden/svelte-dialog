@@ -17,11 +17,12 @@ export function init(opts, name) {
 export function update(opts, name, useBase = true) {
 	const dialog = getDialog(name)
 	if (dialog && opts) {
-		if (useBase) {
-			opts = {
-				...store.base,
-				...opts,
-			}
+		const data = store.getData(dialog)
+		data.component = undefined
+		const base = useBase ? store.base : data
+		opts = {
+			...base,
+			...opts,
 		}
 		dialog.set(opts)
 	}

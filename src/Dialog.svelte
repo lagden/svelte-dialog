@@ -1,9 +1,9 @@
 <script>
-	import {onDestroy} from 'svelte'
 	import {init} from './acts.js'
 
 	import Base from './Base.svelte'
 
+	export let milliseconds = 400
 	export let name = undefined
 	export let title = undefined
 	export let message = undefined
@@ -14,7 +14,9 @@
 	export let showTitle = true
 	export let customStyle = ''
 
-	const opts = {
+	customStyle = `${$$restProps?.style ?? ''};${customStyle}`
+
+	const dialog = init({
 		title,
 		message,
 		component,
@@ -23,9 +25,7 @@
 		showClose,
 		showTitle,
 		customStyle,
-	}
-
-	const dialog = init(opts, name)
+	}, name)
 
 	function close() {
 		$dialog.open = false
@@ -37,39 +37,24 @@
 			close()
 		}
 	}
-
-	const optsKeys = Object.keys(opts)
-	const unsubscribe = dialog.subscribe(o => {
-		for (const k of optsKeys) {
-			opts[k] = o?.[k] ?? opts[k]
-		}
-	})
-
-	onDestroy(() => {
-		unsubscribe()
-	})
 </script>
 
 <svelte:window on:keydown={handleKeydown}/>
 
 {#if $dialog.open}
 	<Base
-		maxHeight={opts.maxHeight}
-		useAlignTop={opts.useAlignTop}
-		showClose={opts.showClose}
-		showTitle={opts.showTitle}
-		customStyle={opts.customStyle}
-		{...$$restProps}
+		{dialog}
+		{milliseconds}
 		on:click={close}
 	>
-		<h3 class="_tadashi_svelte_dialog__title" slot="header">{opts.title}</h3>
+		<h3 class="_tadashi_svelte_dialog__title" slot="header">{$dialog.title}</h3>
 
-		{#if opts.message}
-			{@html opts.message}
+		{#if $dialog.message}
+			{@html $dialog.message}
 		{/if}
 
-		{#if opts.component}
-			<svelte:component this={opts.component.element} {...opts.component?.props ?? {}} />
+		{#if $dialog.component?.element}
+			<svelte:component this={$dialog.component.element} {...$dialog.component?.props ?? {}} />
 		{/if}
 
 		<slot />
@@ -77,9 +62,17 @@
 {/if}
 
 <style>
-._tadashi_svelte_dialog__title {
-	margin: var(--tadashi_svelte_dialog__title_margin, 0);
-	padding: var(--tadashi_svelte_dialog__title_padding, 0);
-	font-size: var(--tadashi_svelte_dialog__title_font_size, 1.5em);
-}
+	/*
+	:root {
+		--tadashi_svelte_dialog__title_margin: 0;
+		--tadashi_svelte_dialog__title_padding: 0;
+		--tadashi_svelte_dialog__title_font_size: 1.5em;
+	}
+	*/
+
+	._tadashi_svelte_dialog__title {
+		margin: var(--tadashi_svelte_dialog__title_margin, 0);
+		padding: var(--tadashi_svelte_dialog__title_padding, 0);
+		font-size: var(--tadashi_svelte_dialog__title_font_size, 1.5em);
+	}
 </style>

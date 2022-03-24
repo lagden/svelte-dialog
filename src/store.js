@@ -4,10 +4,14 @@ const dialogMap = new Map()
 
 const base = {
 	open: false,
-	title: '',
-	message: '',
+	title: undefined,
+	message: undefined,
+	component: undefined,
+	maxHeight: false,
+	useAlignTop: true,
+	showClose: true,
+	showTitle: true,
 	customStyle: '',
-	component: {},
 }
 
 function toggle(n, v) {
@@ -25,8 +29,6 @@ function dialogStore() {
 	}
 }
 
-const dialog = dialogStore()
-
 const unique = name => {
 	if (dialogMap.has(name)) {
 		return dialogMap.get(name)
@@ -40,6 +42,8 @@ const getUnique = name => {
 		return dialogMap.get(name)
 	}
 }
+
+const dialog = dialogStore()
 
 const getData = store => get(store)
 
