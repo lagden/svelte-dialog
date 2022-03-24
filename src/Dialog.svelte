@@ -77,15 +77,9 @@
 {/if}
 
 <style>
-:root {
-	--tadashi_svelte_dialog__title_margin: 0;
-	--tadashi_svelte_dialog__title_padding: 0;
-	--tadashi_svelte_dialog__title_font_size: 1.5em;
-}
-
 ._tadashi_svelte_dialog__title {
-	margin: var(--tadashi_svelte_dialog__title_margin);
-	padding: var(--tadashi_svelte_dialog__title_padding);
-	font-size: var(--tadashi_svelte_dialog__title_font_size);
+	margin: var(--tadashi_svelte_dialog__title_margin, 0);
+	padding: var(--tadashi_svelte_dialog__title_padding, 0);
+	font-size: var(--tadashi_svelte_dialog__title_font_size, 1.5em);
 }
 </style>

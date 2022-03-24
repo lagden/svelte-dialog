@@ -1,11 +1,12 @@
 <script>
-	import {fade} from 'svelte/transition'
+	import {fade, fly} from 'svelte/transition'
 
 	export let maxHeight
 	export let useAlignTop
 	export let showClose
 	export let showTitle
 	export let customStyle
+	export let milliseconds = 400
 
 	$$restProps.style = `${$$restProps?.style ?? ''};${customStyle}`
 
@@ -14,8 +15,15 @@
 		return {
 			destroy() {
 				node.remove()
-			}
+			},
 		}
+	}
+
+	const inFly = {
+		duration: milliseconds,
+		delay: milliseconds,
+		y: 500,
+		opacity: 0,
 	}
 </script>
 
@@ -23,10 +31,15 @@
 	class="_tadashi_svelte_dialog"
 	class:_tadashi_svelte_dialog__align_top={useAlignTop}
 	use:init
-	in:fade|local={{duration: 400}}
+	in:fade={{duration: milliseconds}}
+	out:fade={{duration: milliseconds, delay: milliseconds + 100}}
 	{...$$restProps}
 >
-	<div class="_tadashi_svelte_dialog__box">
+	<div
+		class="_tadashi_svelte_dialog__box"
+		in:fly={inFly}
+		out:fade={{duration: milliseconds}}
+	>
 		<div
 			class="_tadashi_svelte_dialog__content _tadashi_svelte_dialog__grid"
 			class:_tadashi_svelte_dialog__grid___no_show_title={!showTitle}
@@ -56,25 +69,26 @@
 </div>
 
 <style>
+	/*
 	:root {
 		--tadashi_svelte_dialog_backdrop_filter: blur(3px);
-		--tadashi_svelte_dialog_background_color: hsla(0, 0%, 0%, 0.2);
+		--tadashi_svelte_dialog_background_color: hsl(0deg 0% 0% / 20%);
 		--tadashi_svelte_dialog_zindex: 1000;
 
 		--tadashi_svelte_dialog__box_min_width: 320px;
 		--tadashi_svelte_dialog__box_max_width: 800px;
 		--tadashi_svelte_dialog__box_padding: 1em;
 
-		--tadashi_svelte_dialog__content_background_color: white;
+		--tadashi_svelte_dialog__content_background_color: hsl(0deg 0% 100%);
 		--tadashi_svelte_dialog__content_border: 0;
 		--tadashi_svelte_dialog__content_border_radius: 3px;
-		--tadashi_svelte_dialog__content_box_shadow: 0px 0px 8px hsla(0, 0%, 49%, 0.2);
+		--tadashi_svelte_dialog__content_box_shadow: 0px 0px 8px hsl(0deg 0% 49% / 20%);
 		--tadashi_svelte_dialog__content_padding: 2em;
 
-		--tadashi_svelte_dialog__close_background_color: hsl(356, 63%, 58%);
+		--tadashi_svelte_dialog__close_background_color: hsl(356deg 63% 58%);
 		--tadashi_svelte_dialog__close_border: 0;
 		--tadashi_svelte_dialog__close_border_radius: 3px;
-		--tadashi_svelte_dialog__close_color: white;
+		--tadashi_svelte_dialog__close_color: hsl(0deg 0% 100%);
 		--tadashi_svelte_dialog__close_width: 24px;
 		--tadashi_svelte_dialog__close_height: 24px;
 		--tadashi_svelte_dialog__close_outline: 0;
@@ -85,6 +99,7 @@
 
 		--tadashi_svelte_dialog__body_max_height: 100%;
 	}
+	*/
 
 	._tadashi_svelte_dialog {
 		display: flex;
@@ -97,9 +112,9 @@
 		bottom: 0;
 		overflow-y: auto;
 		overflow-x: hidden;
-		background-color: var(--tadashi_svelte_dialog_background_color);
-		backdrop-filter: var(--tadashi_svelte_dialog_backdrop_filter);
-		z-index: var(--tadashi_svelte_dialog_zindex);
+		background-color: var(--tadashi_svelte_dialog_background_color, hsl(0deg 0% 0% / 20%));
+		backdrop-filter: var(--tadashi_svelte_dialog_backdrop_filter, blur(3px));
+		z-index: var(--tadashi_svelte_dialog_zindex, 1001);
 	}
 
 	._tadashi_svelte_dialog__align_top {
@@ -107,20 +122,20 @@
 	}
 
 	._tadashi_svelte_dialog__box {
-		min-width: var(--tadashi_svelte_dialog__box_min_width);
-		max-width: var(--tadashi_svelte_dialog__box_max_width);
-		padding: var(--tadashi_svelte_dialog__box_padding);
+		min-width: var(--tadashi_svelte_dialog__box_min_width, 320px);
+		max-width: var(--tadashi_svelte_dialog__box_max_width, 800px);
+		padding: var(--tadashi_svelte_dialog__box_padding, 1em);
 		box-sizing: border-box;
 	}
 
 	._tadashi_svelte_dialog__content {
-		background-color: var(--tadashi_svelte_dialog__content_background_color);
+		background-color: var(--tadashi_svelte_dialog__content_background_color, hsl(0deg 0% 100%));
 		background-clip: padding-box;
-		border: var(--tadashi_svelte_dialog__content_border);
-		border-radius: var(--tadashi_svelte_dialog__content_border_radius);
-		box-shadow: var(--tadashi_svelte_dialog__content_box_shadow);
+		border: var(--tadashi_svelte_dialog__content_border, 0);
+		border-radius: var(--tadashi_svelte_dialog__content_border_radius, 3px);
+		box-shadow: var(--tadashi_svelte_dialog__content_box_shadow, 0px 0px 8px hsl(0deg 0% 49% / 20%));
 		box-sizing: border-box;
-		padding: var(--tadashi_svelte_dialog__content_padding);
+		padding: var(--tadashi_svelte_dialog__content_padding, 2em);
 		position: relative;
 	}
 
@@ -168,29 +183,29 @@
 	}
 
 	._tadashi_svelte_dialog_body__max {
-		max-height: var(--tadashi_svelte_dialog__body_max_height);
+		max-height: var(--tadashi_svelte_dialog__body_max_height, 100%);
 	}
 
 	._tadashi_svelte_dialog__close {
 		grid-area: close;
 		align-self: flex-start;
-		background-color: var(--tadashi_svelte_dialog__close_background_color);
-		border: var(--tadashi_svelte_dialog__close_border);
-		border-radius: var(--tadashi_svelte_dialog__close_border_radius);
+		background-color: var(--tadashi_svelte_dialog__close_background_color, hsl(356deg 63% 58%));
+		border: var(--tadashi_svelte_dialog__close_border, 0);
+		border-radius: var(--tadashi_svelte_dialog__close_border_radius, 3px);
 		box-sizing: border-box;
-		color: var(--tadashi_svelte_dialog__close_color);
+		color: var(--tadashi_svelte_dialog__close_color, hsl(0deg 0% 100%));
 		cursor: pointer;
-		width: var(--tadashi_svelte_dialog__close_width);
-		height: var(--tadashi_svelte_dialog__close_height);
-		outline: var(--tadashi_svelte_dialog__close_outline);
+		width: var(--tadashi_svelte_dialog__close_width, 24px);
+		height: var(--tadashi_svelte_dialog__close_height, 24px);
+		outline: var(--tadashi_svelte_dialog__close_outline, 0);
 		overflow: hidden;
-		padding: var(--tadashi_svelte_dialog__close_padding);
-		margin: var(--tadashi_svelte_dialog__close_margin);
+		padding: var(--tadashi_svelte_dialog__close_padding, 0);
+		margin: var(--tadashi_svelte_dialog__close_margin, 0);
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-size: var(--tadashi_svelte_dialog__close_font_size);
-		font-family: var(--tadashi_svelte_dialog__close_font_family);
+		font-size: var(--tadashi_svelte_dialog__close_font_size, 1.5em);
+		font-family: var(--tadashi_svelte_dialog__close_font_family, monospace);
 	}
 
 	._tadashi_svelte_dialog__close___no_show {
