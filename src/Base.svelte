@@ -1,15 +1,11 @@
 <script>
-	import {onDestroy} from 'svelte'
 	import {fade, fly} from 'svelte/transition'
 
 	export let dialog
 	export let milliseconds = 400
-	export let style = ''
-
-	console.log('style', style)
 
 	function init(node) {
-		document.body.insertAdjacentElement('beforeend', node)
+		globalThis.document.body.insertAdjacentElement('beforeend', node)
 		return {
 			destroy() {
 				node.remove()
@@ -24,13 +20,9 @@
 		opacity: 0,
 	}
 
-	const unsubscribe = dialog.subscribe(o => {
-		console.log('dialog -->', o)
-	})
-
-	onDestroy(() => {
-		unsubscribe && unsubscribe()
-	})
+	if ($$restProps) {
+		Reflect.deleteProperty($$restProps, 'style')
+	}
 </script>
 
 <div
