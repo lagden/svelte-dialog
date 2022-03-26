@@ -1,6 +1,6 @@
 {
   "name": "@tadashi/svelte-dialog",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Svelte component",
   "author": "Thiago Lagden",
   "license": "MIT",
@@ -24,7 +24,7 @@
   ],
   "type": "module",
   "svelte": "src/dialog.js",
-  "main": "dist/dialog.js",
+  "main": "src/dialog.js",
   "scripts": {
     "prettier": "prettier -c --plugin-search-dir=. ./src/**/*.{svelte,js}",
     "format": "prettier --write --plugin-search-dir=. ./src/**/*.{svelte,js}",
