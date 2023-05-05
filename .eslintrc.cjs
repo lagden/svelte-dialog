@@ -1,22 +1,26 @@
-/*eslint unicorn/prefer-module: 0 */
+/*eslint unicorn/prefer-module: 0*/
 
 'use strict'
 
-const ignoreWarnings = new Set(['a11y-no-onchange', 'a11y-label-has-associated-control'])
+const ignoreWarnings = new Set([
+	'a11y-no-onchange',
+	'a11y-label-has-associated-control',
+	// 'missing-declaration',
+])
 
 module.exports = {
+	root: true,
 	env: {
-		es2021: true,
+		es2022: true,
 		node: true,
 		browser: true,
 	},
-	parser: '@babel/eslint-parser',
 	parserOptions: {
-		ecmaVersion: 12,
+		ecmaVersion: 13,
 		sourceType: 'module',
 	},
-	plugins: ['html', 'svelte3'],
 	extends: ['xo', 'plugin:unicorn/recommended'],
+	plugins: ['svelte3'],
 	overrides: [
 		{
 			files: ['**/*.svelte'],
@@ -50,6 +54,7 @@ module.exports = {
 		'capitalized-comments': 0,
 		'spaced-comment': 0,
 		'padding-line-between-statements': 0,
+		'no-multi-assign': 0,
 		'no-undef-init': 0,
 		'unicorn/filename-case': 0,
 		'unicorn/prevent-abbreviations': 0,
@@ -59,7 +64,9 @@ module.exports = {
 		'unicorn/no-useless-undefined': 0,
 		'unicorn/no-zero-fractions': 0,
 		'unicorn/prefer-query-selector': 0,
-		'unicorn/prefer-export-from': 0,
+		'unicorn/prefer-top-level-await': 0,
+		// 'unicorn/prefer-object-from-entries': 0,
+		// 'unicorn/no-null': 0,
 		'unicorn/import-style': [
 			'error',
 			{
@@ -78,5 +85,8 @@ module.exports = {
 	settings: {
 		'svelte3/ignore-warnings': w => ignoreWarnings.has(w && w.code),
 		'svelte3/ignore-styles': attributes => attributes.postcss || attributes.lang,
+		// 'svelte3/compiler-options': {
+		// 	customElement: true,
+		// },
 	},
 }

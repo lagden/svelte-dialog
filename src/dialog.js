@@ -1,9 +1,2 @@
-/* istanbul ignore file */
-
-import * as acts from './acts.js'
-import Dialog from './Dialog.svelte'
-
-export {
-	Dialog,
-	acts,
-}
+export * as acts from './acts.js'
+export {default as Dialog} from './Dialog.svelte'

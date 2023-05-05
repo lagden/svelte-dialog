@@ -4,19 +4,8 @@ const dialogMap = new Map()
 
 const base = {
 	open: false,
-	title: undefined,
-	message: undefined,
 	component: undefined,
-	maxHeight: false,
-	useAlignTop: true,
-	showClose: true,
-	showTitle: true,
-	customStyle: '',
-}
-
-function toggle(n, v) {
-	n.open = v
-	return n
+	componentProps: {},
 }
 
 function dialogStore() {
@@ -24,12 +13,21 @@ function dialogStore() {
 	return {
 		set,
 		subscribe,
-		open: () => update(n => toggle(n, true)),
-		close: () => update(n => toggle(n, false)),
+		open: () => update(n => {
+			n.open = true
+			return n
+		}),
+		close: () => update(n => {
+			n.open = false
+			return n
+		}),
 	}
 }
 
-const unique = name => {
+/**
+ * @param {any} name
+ */
+function unique(name) {
 	if (dialogMap.has(name)) {
 		return dialogMap.get(name)
 	}
@@ -37,19 +35,29 @@ const unique = name => {
 	return dialogMap.get(name)
 }
 
-const getUnique = name => {
+/**
+ * @param {string} name
+ */
+function getUnique(name) {
 	if (dialogMap.has(name)) {
 		return dialogMap.get(name)
 	}
 }
 
-const dialog = dialogStore()
+/**
+ * @param {import("svelte/store").Readable<any>} store
+ */
+function getData(store) {
+	return get(store)
+}
 
-const getData = store => get(store)
+const KEY = Symbol.for('store.dialog')
+const singleton = Object.create(null)
+singleton[KEY] = dialogStore()
 
+export default singleton[KEY]
 export {
 	base,
-	dialog,
 	unique,
 	getUnique,
 	getData,

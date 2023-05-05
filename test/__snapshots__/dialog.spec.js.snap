@@ -2,48 +2,15 @@
 
 exports[`Dialog should match snapshot 1`] = `
 <body>
-  <div>
-    
-  </div>
-  <div
-    class="_tadashi_svelte_dialog _tadashi_svelte_dialog__align_top svelte-1p7324g"
-    style=""
+  <div />
+  <dialog
+    class="__mdc_dialog"
   >
-    <div
-      class="_tadashi_svelte_dialog__box svelte-1p7324g"
-      style=""
-    >
-      <div
-        class="_tadashi_svelte_dialog__content _tadashi_svelte_dialog__grid svelte-1p7324g"
-      >
-        <div
-          class="_tadashi_svelte_dialog__header svelte-1p7324g"
-        >
-          <h3
-            class="_tadashi_svelte_dialog__title svelte-4o4ptr"
-            slot="header"
-          >
-            Teste
-          </h3>
-        </div>
-         
-        <button
-          class="_tadashi_svelte_dialog__close svelte-1p7324g"
-          type="button"
-        >
-          ×
-        </button>
-         
-        <div
-          class="_tadashi_svelte_dialog__body svelte-1p7324g"
-        >
-          Apenas um show.
-          
-           
-           
-        </div>
-      </div>
-    </div>
-  </div>
+    <p>
+      Apenas um show
+    </p>
+    
+    
+  </dialog>
 </body>
 `;

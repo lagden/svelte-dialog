@@ -21,42 +21,21 @@ $ npm i -S @tadashi/svelte-dialog
 
 ## Props
 
-property    | type         | required    | default   | description
------------ | ------------ | ----------- | --------- | ------------
-name        | String       | no          | false     | unique name (like a ID)
-title       | String       | no          | -         | title
-message     | String       | no          | false     | message
-customStyle | String       | no          | ''        | custom style
-component   | Object       | no          | false     | [see below](#component)
-maxHeight   | Boolean      | no          | false     | set max-height
-useAlignTop | Boolean      | no          | true      | align dialog on the top
-showClose   | Boolean      | no          | true      | show close button
-showTitle   | Boolean      | no          | true      | show box title
-
-
-#### component
-
-parameter   | type         | required    | default   | description
------------ | ------------ | ----------- | --------- | ------------
-element     | Component    | yes         | -         | A Svelte Component
-props       | Object       | no          | {}        | Component properties
+property       | type         | required    | default   | description
+-------------- | ------------ | ----------- | --------- | ------------
+name           | String       | no          | false     | unique name (like a ID)
+component      | Component    | yes         | undefined | A Svelte Component
+componentProps | Object       | no          | {}        | Component properties
 
 
 ## Usage
 
-You can see an example here: https://svelte.dev/repl/1edee6644cc44942bff65170a1e7b370?version=3.35.0
+You can see more examples here: https://svelte.dev/repl/1edee6644cc44942bff65170a1e7b370?version=3.59.0
 
 ```svelte
 <script>
   import {Dialog, acts} from '@tadashi/svelte-dialog'
   import Exemplo from './Exemplo.svelte'
-
-  function showDialog(opts = {}, name, useBase = true) {
-    return () => {
-      acts.update(opts, name, useBase)
-      acts.open(name)
-    }
-  }
 
   function showDialogOnlyOpen(name) {
     return () => {
@@ -64,45 +43,18 @@ You can see an example here: https://svelte.dev/repl/1edee6644cc44942bff65170a1e
     }
   }
 
-  const base = {
-    title: 'Esse é um "dialog" com o título grande',
-    message: 'Apenas um <b>show</b>!'
-  }
-
   const unique = {
-    name: 'yeahh',
-    title: 'Uniquee!!',
-    message: 'Apenas um show uniquee',
-    useAlignTop: false
-  }
-
-  const component = {
-    title: 'Via Componente',
-    message: false,
-    useAlignTop: false,
-    component: {
-      element: Exemplo,
-      props: {
-        title: 'Exemplo',
-        message: 'Forever and ever!'
-      }
-    }
+    name: 'exemplo',
+    component: Exemplo,
+    componentProps: {
+      description: 'Apenas um exemplo',
+    },
   }
 </script>
 
-<button on:click="{showDialog(base)}">Dialog</button>
-<button on:click="{showDialog({title: 'Dialog'}, false, false)}">Update Title</button>
-<button on:click="{showDialog(component)}">Dialog Component</button>
-<button on:click="{showDialogOnlyOpen('yeahh')}">Dialog Unique</button>
+<button on:click="{showDialogOnlyOpen('exemplo')}">Dialog Unique</button>
 
-<Dialog />
 <Dialog {...unique} />
-
-<style>
-  button {
-    display: block;
-  }
-</style>
 ```
 
 
