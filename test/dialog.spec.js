@@ -33,17 +33,13 @@ describe('Dialog', () => {
 		const {container} = render(Dialog, {
 			props: {
 				name: 'teste',
+				component: TesteModal,
+				componentProps: {
+					description: 'Apenas um show',
+				},
 			},
 		})
 
-		const opts = {
-			component: TesteModal,
-			componentProps: {
-				description: 'Apenas um show',
-			},
-		}
-
-		acts.update(opts, 'teste')
 		acts.open('teste')
 
 		setTimeout(() => {
@@ -52,6 +48,55 @@ describe('Dialog', () => {
 
 		setTimeout(() => {
 			acts.close('teste')
+			done()
+		}, 1500)
+	})
+})
+
+describe('Dialog - no name', () => {
+	afterEach(cleanup)
+
+	test('should match snapshot', done => {
+		const {container} = render(Dialog, {
+			props: {
+				component: TesteModal,
+				componentProps: {
+					description: 'Apenas um show',
+				},
+			},
+		})
+
+		acts.open()
+
+		setTimeout(() => {
+			expect(container).toMatchSnapshot()
+		}, 1000)
+
+		setTimeout(() => {
+			acts.close()
+			done()
+		}, 1500)
+	})
+})
+
+describe('Dialog - missing component', () => {
+	afterEach(cleanup)
+
+	test('should match snapshot', done => {
+		const {container} = render(Dialog, {
+			props: {
+				name: 'nope',
+			},
+		})
+
+		acts.open('nope')
+
+		setTimeout(() => {
+			expect(container).toMatchSnapshot()
+		}, 1000)
+
+		setTimeout(() => {
+			acts.close('nope')
 			done()
 		}, 1500)
 	})

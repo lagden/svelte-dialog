@@ -1,13 +1,50 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Dialog - missing component should match snapshot 1`] = `
+<body>
+  <div />
+  <dialog
+    class="tadashi-svelte-dialog"
+  >
+    <h3>
+      Missing component!
+    </h3>
+     
+    <button>
+      Close
+    </button>
+    
+  </dialog>
+</body>
+`;
+
+exports[`Dialog - no name should match snapshot 1`] = `
+<body>
+  <div />
+  <dialog
+    class="tadashi-svelte-dialog"
+  >
+    <p>
+      Apenas um show
+       - 
+      no name
+    </p>
+    
+    
+  </dialog>
+</body>
+`;
+
 exports[`Dialog should match snapshot 1`] = `
 <body>
   <div />
   <dialog
-    class="__mdc_dialog"
+    class="tadashi-svelte-dialog"
   >
     <p>
       Apenas um show
+       - 
+      teste
     </p>
     
     

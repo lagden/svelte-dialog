@@ -3,6 +3,7 @@
 <script>
 	export let isOpen = false
 
+	/** @type {HTMLDialogElement} */
 	let dialog
 	let animation = false
 
@@ -30,7 +31,7 @@
 	}
 
 	/**
-	 * @param {Element} node
+	 * @param {HTMLDialogElement} node
 	 */
 	function init(node) {
 		globalThis.document.body.insertAdjacentElement('beforeend', node)
@@ -46,29 +47,27 @@
 <dialog
 	use:init
 	bind:this={dialog}
-	class:__mdc_dialog={true}
-	class:__mdc_dialog_animation={animation}
+	class:tadashi-svelte-dialog={true}
+	class:tadashi-svelte-dialog--animation={animation}
 	{...$$restProps}
->
-	<slot />
-</dialog>
+><slot /></dialog>
 
-<style lang="postcss">
-	:global(.__mdc_dialog[open]) {
+<style>
+	:global(.tadashi-svelte-dialog[open]) {
 		opacity: 0;
 		animation: dialog_in 0.3s ease-in 0.8s;
 		animation-fill-mode: forwards;
 	}
 
-	:global(.__mdc_dialog[open]::backdrop) {
+	:global(.tadashi-svelte-dialog[open]::backdrop) {
 		animation: dialog_bg_in 0.3s ease-in;
 	}
 
-	:global(.__mdc_dialog.__mdc_dialog_animation[open]) {
+	:global(.tadashi-svelte-dialog.tadashi-svelte-dialog--animation[open]) {
 		animation: dialog_out 0.3s ease-out;
 	}
 
-	:global(.__mdc_dialog.__mdc_dialog_animation[open]::backdrop) {
+	:global(.tadashi-svelte-dialog.tadashi-svelte-dialog--animation[open]::backdrop) {
 		animation: dialog_bg_out 0.3s ease-out;
 		animation-fill-mode: forwards;
 	}

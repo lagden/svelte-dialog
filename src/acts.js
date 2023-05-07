@@ -1,45 +1,42 @@
 import storeDialog, * as store from './store'
 
 /**
- * @param {string} name
+ * @param {string=} name
  */
 function getDialog(name) {
 	return name ? store.getUnique(name) : storeDialog
 }
 
 /**
- * @param {{ component: any; componentProps: any; }} opts
- * @param {any} name
+ * @param {{ name: string=; open: boolean=false; component: import("svelte").ComponentType=; componentProps: import("svelte").ComponentProps=; }} opts
  */
-export function init(opts, name) {
+export function init(opts) {
+	const {name, ...rest} = opts
 	const dialog = name ? store.unique(name) : storeDialog
-	opts = {
+	dialog.set({
 		...store.base,
-		...opts,
-	}
-	dialog.set(opts)
+		...rest,
+	})
 	return dialog
 }
 
 /**
- * @param {{ component: any; componentProps: any; }} opts
- * @param {string} name
+ * @param {{ name: string=; open: boolean=false; component: import("svelte").ComponentType=; componentProps: import("svelte").ComponentProps=; }} opts
  */
-export function update(opts, name) {
+export function update(opts) {
+	const {name, ...rest} = opts
 	const dialog = getDialog(name)
-	if (dialog && opts) {
-		const data = store.getData(dialog)
-		const base = data ?? {}
-		opts = {
-			...base,
-			...opts,
-		}
-		dialog.set(opts)
+	if (dialog) {
+		const current = store.getData(dialog)
+		dialog.set({
+			...current,
+			...rest,
+		})
 	}
 }
 
 /**
- * @param {string} [name]
+ * @param {string=} [name]
  */
 export function open(name) {
 	const dialog = getDialog(name)
@@ -49,7 +46,7 @@ export function open(name) {
 }
 
 /**
- * @param {string} [name]
+ * @param {string=} [name]
  */
 export function close(name) {
 	const dialog = getDialog(name)

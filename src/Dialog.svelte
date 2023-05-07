@@ -4,34 +4,49 @@
 	import Base from './Base.svelte'
 
 	export let name = undefined
+	export let open = false
 	export let component = undefined
-	export let componentProps = undefined
+	export let componentProps = {}
 
-	let element
+	/** @type {import("svelte").ComponentType} */
+	let componentBase
 
 	const dialog = init({
+		name,
+		open,
 		component,
 		componentProps,
-	}, name)
+	})
+
+	function closeDialog() {
+		if (componentBase && componentBase.isOpen) {
+			dialog.close()
+		}
+	}
 
 	function handleKeydown(event) {
 		if (event.key === 'Escape') {
 			event.preventDefault()
-			if (element && element.isOpen) {
-				dialog.close()
-			}
+			closeDialog()
 		}
 	}
 
 	$: {
-		element?.[$dialog.open ? 'open' : 'close']()
+		componentBase?.[$dialog.open ? 'open' : 'close']()
 	}
 </script>
 
 <svelte:window on:keydown={handleKeydown}/>
 
-<Base bind:this={element} {...$$restProps}>
+<Base bind:this={componentBase} {...$$restProps}>
 	{#if $dialog.component}
-		<svelte:component this={$dialog.component} {...$dialog.componentProps ?? {}} />
+		<svelte:component
+			this={$dialog.component}
+			{...($dialog.componentProps ?? {})}
+			{...(name ? {name} : {})}
+		/>
+	{:else}
+		<h3>Missing component!</h3>
+		<button on:click="{closeDialog}">Close</button>
 	{/if}
 </Base>

@@ -11,7 +11,7 @@
 
 ---
 
-Svelte component
+Dialog - Svelte component
 
 ## Install
 
@@ -23,39 +23,43 @@ $ npm i -S @tadashi/svelte-dialog
 
 property       | type         | required    | default   | description
 -------------- | ------------ | ----------- | --------- | ------------
-name           | String       | no          | false     | unique name (like a ID)
-component      | Component    | yes         | undefined | A Svelte Component
-componentProps | Object       | no          | {}        | Component properties
+name           | String       | no          | undefined | unique name (like a ID)
+open           | Boolean      | no          | false     | unique name (like a ID)
+component      | Component    | yes         | undefined | Svelte Component
+componentProps | Object       | no          | {}        | Svelte Component properties
 
 
 ## Usage
 
-You can see more examples here: https://svelte.dev/repl/1edee6644cc44942bff65170a1e7b370?version=3.59.0
+You can see more examples here: https://svelte.dev/repl/69a508aaf3a342cd88a82c35241c5e31?version=3.59.0
 
 ```svelte
 <script>
   import {Dialog, acts} from '@tadashi/svelte-dialog'
   import Exemplo from './Exemplo.svelte'
 
-  function showDialogOnlyOpen(name) {
-    return () => {
-      acts.open(name)
-    }
-  }
-
   const unique = {
     name: 'exemplo',
     component: Exemplo,
     componentProps: {
-      description: 'Apenas um exemplo',
+      title: 'Apenas um exemplo',
+      message: 'Tá deprimidis, eu conheço uma cachacis que pode alegrar sua vidis',
     },
   }
 </script>
 
-<button on:click="{showDialogOnlyOpen('exemplo')}">Dialog Unique</button>
+<button on:click="{() => acts.open('exemplo')}">Dialog Unique</button>
+<button on:click="{() => acts.open()}">Dialog</button>
 
 <Dialog {...unique} />
+<Dialog />
 ```
+
+
+## Donate ❤️
+
+- BTC: bc1q7famhuj5f25n6qvlm3sssnymk2qpxrfwpyq7g4
+- PIX: lagden@gmail.com
 
 
 ## License

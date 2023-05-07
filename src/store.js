@@ -5,7 +5,7 @@ const dialogMap = new Map()
 const base = {
 	open: false,
 	component: undefined,
-	componentProps: {},
+	componentProps: undefined,
 }
 
 function dialogStore() {
@@ -25,7 +25,7 @@ function dialogStore() {
 }
 
 /**
- * @param {any} name
+ * @param {string=} name
  */
 function unique(name) {
 	if (dialogMap.has(name)) {
@@ -36,7 +36,7 @@ function unique(name) {
 }
 
 /**
- * @param {string} name
+ * @param {string=} name
  */
 function getUnique(name) {
 	if (dialogMap.has(name)) {
