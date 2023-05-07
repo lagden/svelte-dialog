@@ -12,7 +12,6 @@
 			animation = false
 			isOpen = false
 			dialog.close()
-			dialog.removeEventListener('animationend', animationend)
 		}
 	}
 
@@ -26,7 +25,6 @@
 	export function close() {
 		if (dialog && isOpen === true) {
 			animation = true
-			dialog.addEventListener('animationend', animationend)
 		}
 	}
 
@@ -35,6 +33,7 @@
 	 */
 	function init(node) {
 		globalThis.document.body.insertAdjacentElement('beforeend', node)
+		node.addEventListener('animationend', animationend)
 		return {
 			destroy() {
 				node.removeEventListener('animationend', animationend)
@@ -53,21 +52,21 @@
 ><slot /></dialog>
 
 <style>
-	:global(.tadashi-svelte-dialog[open]) {
+	.tadashi-svelte-dialog[open] {
 		opacity: 0;
 		animation: dialog_in 0.3s ease-in 0.8s;
 		animation-fill-mode: forwards;
 	}
 
-	:global(.tadashi-svelte-dialog[open]::backdrop) {
+	.tadashi-svelte-dialog[open]::backdrop {
 		animation: dialog_bg_in 0.3s ease-in;
 	}
 
-	:global(.tadashi-svelte-dialog.tadashi-svelte-dialog--animation[open]) {
+	.tadashi-svelte-dialog.tadashi-svelte-dialog--animation[open] {
 		animation: dialog_out 0.3s ease-out;
 	}
 
-	:global(.tadashi-svelte-dialog.tadashi-svelte-dialog--animation[open]::backdrop) {
+	.tadashi-svelte-dialog.tadashi-svelte-dialog--animation[open]::backdrop {
 		animation: dialog_bg_out 0.3s ease-out;
 		animation-fill-mode: forwards;
 	}
@@ -93,22 +92,22 @@
 	@keyframes dialog_in {
 		0% {
 			opacity: 0;
-			transform: scale(0.8);
+			transform: var(--tadashi-svelte-dialog-in-from-transform, scale(0.8));
 		}
 		100% {
 			opacity: 1;
-			transform: scale(1);
+			transform: var(--tadashi-svelte-dialog-in-to-transform, scale(1));
 		}
 	}
 
 	@keyframes dialog_out {
 		0% {
 			opacity: 1;
-			transform: scale(1);
+			transform: var(--tadashi-svelte-dialog-out-from-transform, scale(1));
 		}
 		100% {
 			opacity: 0;
-			transform: scale(1.2);
+			transform: var(--tadashi-svelte-dialog-out-to-transform, scale(1.2));
 		}
 	}
 </style>
