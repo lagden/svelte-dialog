@@ -4,7 +4,7 @@ exports[`Dialog - missing component should match snapshot 1`] = `
 <body>
   <div />
   <dialog
-    class="tadashi-svelte-dialog svelte-afb37l"
+    class="tadashi-svelte-dialog"
   >
     <h3>
       Missing component!
@@ -22,7 +22,7 @@ exports[`Dialog - no name should match snapshot 1`] = `
 <body>
   <div />
   <dialog
-    class="tadashi-svelte-dialog svelte-afb37l"
+    class="tadashi-svelte-dialog"
   >
     <p>
       Apenas um show
@@ -39,7 +39,7 @@ exports[`Dialog should match snapshot 1`] = `
 <body>
   <div />
   <dialog
-    class="tadashi-svelte-dialog svelte-afb37l"
+    class="tadashi-svelte-dialog"
   >
     <p>
       Apenas um show

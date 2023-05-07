@@ -52,21 +52,21 @@
 ><slot /></dialog>
 
 <style>
-	.tadashi-svelte-dialog[open] {
+	:global(.tadashi-svelte-dialog[open]) {
 		opacity: 0;
 		animation: dialog_in 0.3s ease-in 0.8s;
 		animation-fill-mode: forwards;
 	}
 
-	.tadashi-svelte-dialog[open]::backdrop {
+	:global(.tadashi-svelte-dialog[open]::backdrop) {
 		animation: dialog_bg_in 0.3s ease-in;
 	}
 
-	.tadashi-svelte-dialog.tadashi-svelte-dialog--animation[open] {
+	:global(.tadashi-svelte-dialog.tadashi-svelte-dialog--animation[open]) {
 		animation: dialog_out 0.3s ease-out;
 	}
 
-	.tadashi-svelte-dialog.tadashi-svelte-dialog--animation[open]::backdrop {
+	:global(.tadashi-svelte-dialog.tadashi-svelte-dialog--animation[open]::backdrop) {
 		animation: dialog_bg_out 0.3s ease-out;
 		animation-fill-mode: forwards;
 	}
