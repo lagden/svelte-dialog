@@ -9,9 +9,10 @@
 
 	function animationend() {
 		if (dialog) {
+			dialog.removeEventListener('animationend', animationend)
+			dialog.close()
 			animation = false
 			isOpen = false
-			dialog.close()
 		}
 	}
 
@@ -24,6 +25,7 @@
 
 	export function close() {
 		if (dialog && isOpen === true) {
+			dialog.addEventListener('animationend', animationend)
 			animation = true
 		}
 	}
@@ -33,7 +35,6 @@
 	 */
 	function init(node) {
 		globalThis.document.body.insertAdjacentElement('beforeend', node)
-		node.addEventListener('animationend', animationend)
 		return {
 			destroy() {
 				node.removeEventListener('animationend', animationend)
@@ -52,26 +53,26 @@
 ><slot /></dialog>
 
 <style>
-	:global(.tadashi-svelte-dialog[open]) {
+	.tadashi-svelte-dialog[open] {
 		opacity: 0;
-		animation: dialog_in 0.3s ease-in 0.8s;
+		animation: tadashi-svelte-dialog-in 0.3s ease-in 0.8s;
 		animation-fill-mode: forwards;
 	}
 
-	:global(.tadashi-svelte-dialog[open]::backdrop) {
-		animation: dialog_bg_in 0.3s ease-in;
+	.tadashi-svelte-dialog[open]::backdrop {
+		animation: tadashi-svelte-dialog-bg-in 0.3s ease-in;
 	}
 
-	:global(.tadashi-svelte-dialog.tadashi-svelte-dialog--animation[open]) {
-		animation: dialog_out 0.3s ease-out;
+	.tadashi-svelte-dialog--animation[open] {
+		animation: tadashi-svelte-dialog-out 0.3s ease-out;
 	}
 
-	:global(.tadashi-svelte-dialog.tadashi-svelte-dialog--animation[open]::backdrop) {
-		animation: dialog_bg_out 0.3s ease-out;
+	.tadashi-svelte-dialog--animation[open]::backdrop {
+		animation: tadashi-svelte-dialog-bg-out 0.3s ease-out;
 		animation-fill-mode: forwards;
 	}
 
-	@keyframes dialog_bg_in {
+	@keyframes tadashi-svelte-dialog-bg-in {
 		0% {
 			opacity: 0;
 		}
@@ -80,7 +81,7 @@
 		}
 	}
 
-	@keyframes dialog_bg_out {
+	@keyframes tadashi-svelte-dialog-bg-out {
 		0% {
 			opacity: 1;
 		}
@@ -89,7 +90,7 @@
 		}
 	}
 
-	@keyframes dialog_in {
+	@keyframes tadashi-svelte-dialog-in {
 		0% {
 			opacity: 0;
 			transform: var(--tadashi-svelte-dialog-in-from-transform, scale(0.8));
@@ -100,7 +101,7 @@
 		}
 	}
 
-	@keyframes dialog_out {
+	@keyframes tadashi-svelte-dialog-out {
 		0% {
 			opacity: 1;
 			transform: var(--tadashi-svelte-dialog-out-from-transform, scale(1));
