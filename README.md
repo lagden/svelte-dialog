@@ -24,7 +24,7 @@ $ npm i -S @tadashi/svelte-dialog
 property       | type         | required    | default   | description
 -------------- | ------------ | ----------- | --------- | ------------
 name           | String       | no          | undefined | unique name (like a ID)
-open           | Boolean      | no          | false     | unique name (like a ID)
+open           | Boolean      | no          | false     | dialog state
 component      | Component    | yes         | undefined | Svelte Component
 componentProps | Object       | no          | {}        | Svelte Component properties
 
