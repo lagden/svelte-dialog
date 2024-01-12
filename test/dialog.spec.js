@@ -1,12 +1,4 @@
-import {
-	jest,
-	describe,
-	expect,
-	test,
-	beforeAll,
-	afterAll,
-	afterEach,
-} from '@jest/globals'
+import {jest, describe, expect, test, beforeAll, afterAll, afterEach} from '@jest/globals'
 import timekeeper from 'timekeeper'
 import {cleanup, render} from '@testing-library/svelte'
 import {Dialog, acts} from '../src/dialog.js'

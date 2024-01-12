@@ -16,9 +16,7 @@ try {
 		format: 'esm',
 		outdir: './dist',
 		target: ['es2021'],
-		plugins: [
-			esbuildSvelte(config),
-		],
+		plugins: [esbuildSvelte(config)],
 	})
 	console.log(result)
 } catch (error) {

@@ -13,14 +13,16 @@ function dialogStore() {
 	return {
 		set,
 		subscribe,
-		open: () => update(n => {
-			n.open = true
-			return n
-		}),
-		close: () => update(n => {
-			n.open = false
-			return n
-		}),
+		open: () =>
+			update(n => {
+				n.open = true
+				return n
+			}),
+		close: () =>
+			update(n => {
+				n.open = false
+				return n
+			}),
 	}
 }
 
@@ -56,9 +58,4 @@ const singleton = Object.create(null)
 singleton[KEY] = dialogStore()
 
 export default singleton[KEY]
-export {
-	base,
-	unique,
-	getUnique,
-	getData,
-}
+export {base, unique, getUnique, getData}
