@@ -1,0 +1,20 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`dom > dialog 1`] = `
+<body>
+  <dialog
+    class="tadashi-svelte-dialog s-PNpndoCA_M6Y"
+  >
+    <h3>
+      Missing component!
+    </h3>
+     
+    <button>
+      Close
+    </button>
+    
+  </dialog>
+  <!--&lt;Base&gt;-->
+  <!--&lt;Dialog&gt;-->
+</body>
+`;
