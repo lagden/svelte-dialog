@@ -53,8 +53,8 @@ function getUnique(name) {
  * @param {import("svelte/store").Readable<any>} store
  */
 function getData(store) {
-	return globalThis.structuredClone(get(store))
-	// return get(store)
+	// return globalThis.structuredClone(get(store))
+	return get(store)
 }
 
 const KEY = Symbol.for('store.dialog')
