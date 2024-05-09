@@ -1,21 +1,30 @@
 import storeDialog, * as store from './store'
 
+export const componentMap = new Map()
+
 /**
  * @param {string=} name
  */
-function getDialog(name) {
-	return name ? store.getUnique(name) : storeDialog
+export function getDialog(name) {
+	return name === undefined ? storeDialog : store.getUnique(name)
 }
 
 /**
  * @param {{ name: string=; open: boolean=false; component: import("svelte").ComponentType=; componentProps: import("svelte").ComponentProps=; }} opts
  */
 export function init(opts) {
-	const {name, ...rest} = opts
-	const dialog = name ? store.unique(name) : storeDialog
-	dialog.set({
-		...store.base,
-		...rest,
+	const {name, component, componentName, ...rest} = opts
+	if (componentName && component) {
+		componentMap.set(componentName, component)
+	}
+	const dialog = name === undefined ? storeDialog : store.unique(name)
+	dialog.update(n => {
+		return {
+			...n,
+			...store.base,
+			...(componentName ? {componentName} : {}),
+			...rest,
+		}
 	})
 	return dialog
 }
@@ -24,13 +33,20 @@ export function init(opts) {
  * @param {{ name: string=; open: boolean=false; component: import("svelte").ComponentType=; componentProps: import("svelte").ComponentProps=; }} opts
  */
 export function update(opts) {
-	const {name, ...rest} = opts
+	const {name, component, componentName, ...rest} = opts
+	if (componentName && component) {
+		componentMap.set(componentName, component)
+	}
 	const dialog = getDialog(name)
 	if (dialog) {
 		const current = store.getData(dialog)
-		dialog.set({
-			...current,
-			...rest,
+		dialog.update(n => {
+			return {
+				...n,
+				...current,
+				...(componentName ? {componentName} : {}),
+				...rest,
+			}
 		})
 	}
 }
@@ -40,8 +56,9 @@ export function update(opts) {
  */
 export function open(name) {
 	const dialog = getDialog(name)
-	if (dialog) {
-		dialog.open()
+	const data = store.getData(dialog)
+	if (dialog && data?.open === false) {
+		dialog.openIt()
 	}
 }
 
@@ -50,7 +67,8 @@ export function open(name) {
  */
 export function close(name) {
 	const dialog = getDialog(name)
-	if (dialog) {
-		dialog.close()
+	const data = store.getData(dialog)
+	if (dialog && data?.open === true) {
+		dialog.closeIt()
 	}
 }

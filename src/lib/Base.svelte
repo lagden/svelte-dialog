@@ -1,116 +1,72 @@
+<!-- A Svelte component representing a dialog. -->
 <svelte:options accessors />
 
 <script>
+import {createEventDispatcher} from 'svelte'
+const dispatch = createEventDispatcher()
+
+/**
+ * Indicates whether the dialog is currently open or closed.
+ * @type {boolean}
+ */
 export let isOpen = false
 
-/** @type {HTMLDialogElement} */
+/**
+ * A reference to the dialog element.
+ * @type {HTMLDialogElement}
+ */
 let dialog
-let animation = false
 
-function animationend() {
-	if (dialog) {
-		dialog.removeEventListener('animationend', animationend)
-		dialog.close()
-		animation = false
-		isOpen = false
-	}
-}
-
+/**
+ * Opens the dialog if it exists and is not already open.
+ */
 export function open() {
-	if (dialog && isOpen === false) {
-		isOpen = true
-		dialog.showModal()
-	}
-}
-
-export function close() {
-	if (dialog && isOpen === true) {
-		dialog.addEventListener('animationend', animationend)
-		animation = true
-	}
+	isOpen = true
+	dispatch('dialogState', isOpen)
+	dialog?.showModal()
 }
 
 /**
- * @param {HTMLDialogElement} node
+ * Closes the dialog if it exists and is currently open.
+ */
+export function close() {
+	dialog?.close()
+}
+
+/**
+ * Closes the dialog by setting the `isOpen` flag to `false`.
+ */
+export function onClose() {
+	isOpen = false
+	dispatch('dialogState', isOpen)
+}
+
+/**
+ * Initializes the dialog element and appends it to the document body.
+ *
+ * @param {HTMLDialogElement} node - The dialog element to initialize.
+ * @returns {object} - An object with a `destroy` function to remove the dialog from the DOM.
  */
 function init(node) {
 	globalThis.document.body.insertAdjacentElement('beforeend', node)
+	node.addEventListener('close', onClose)
 	return {
+		/**
+		 * Destroys the dialog element, removing it from the DOM.
+		 */
 		destroy() {
-			node.removeEventListener('animationend', animationend)
+			node.removeEventListener('close', onClose)
 			node.remove()
 		},
 	}
 }
 </script>
 
+<!-- The dialog element that is initialized and managed by this component. -->
 <dialog
 	use:init
 	bind:this={dialog}
-	class:tadashi-svelte-dialog={true}
-	class:tadashi-svelte-dialog--animation={animation}
 	{...$$restProps}
 >
 	<slot />
 </dialog>
-
-<style>
-.tadashi-svelte-dialog[open] {
-	opacity: 0;
-	animation: tadashi-svelte-dialog-in 0.3s ease-in 0.8s;
-	animation-fill-mode: forwards;
-}
-
-.tadashi-svelte-dialog[open]::backdrop {
-	animation: tadashi-svelte-dialog-bg-in 0.3s ease-in;
-}
-
-.tadashi-svelte-dialog--animation[open] {
-	animation: tadashi-svelte-dialog-out 0.3s ease-out;
-}
-
-.tadashi-svelte-dialog--animation[open]::backdrop {
-	animation: tadashi-svelte-dialog-bg-out 0.3s ease-out;
-	animation-fill-mode: forwards;
-}
-
-@keyframes tadashi-svelte-dialog-bg-in {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
-}
-
-@keyframes tadashi-svelte-dialog-bg-out {
-	0% {
-		opacity: 1;
-	}
-	100% {
-		opacity: 0;
-	}
-}
-
-@keyframes tadashi-svelte-dialog-in {
-	0% {
-		opacity: 0;
-		transform: var(--tadashi-svelte-dialog-in-from-transform, scale(0.8));
-	}
-	100% {
-		opacity: 1;
-		transform: var(--tadashi-svelte-dialog-in-to-transform, scale(1));
-	}
-}
-
-@keyframes tadashi-svelte-dialog-out {
-	0% {
-		opacity: 1;
-		transform: var(--tadashi-svelte-dialog-out-from-transform, scale(1));
-	}
-	100% {
-		opacity: 0;
-		transform: var(--tadashi-svelte-dialog-out-to-transform, scale(1.2));
-	}
-}
-</style>

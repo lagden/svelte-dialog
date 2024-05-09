@@ -1,6 +1,6 @@
 {
   "name": "@tadashi/svelte-dialog",
-  "version": "4.1.1",
+  "version": "5.0.0",
   "type": "module",
   "svelte": "./dist/index.js",
   "types": "./dist/index.d.ts",
